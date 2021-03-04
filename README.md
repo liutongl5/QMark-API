@@ -1,5 +1,5 @@
 # QMark-API
-[中文](#user-content-简介) | [English](#user-content-Introduction)
+[中文](#user-content-简介) | [English](#user-content-introduction)
 
 [QMagazine]: https://qingmang.me/app
 
@@ -20,7 +20,7 @@ Convert "Marked" RSS feed API from [Qingmang Magazine][QMagazine] into:
 + `<div>` DOM in pure `HTML`
 + `Markdown` (to be done)
 
-## Trial
+## Demo
 <https://liutongl5.github.io/QMark-API/index.html>
 A pseudo-"serverless" implementation based on Github Actions and AJAX
 
