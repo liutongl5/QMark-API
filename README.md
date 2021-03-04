@@ -1,5 +1,5 @@
 # QMark-API
-[中文](简介) | [English](#Trial)
+[中文](#user-content-简介) | [English](#user-content-Introduction)
 
 ## 简介
 将[轻芒杂志](https://qingmang.me/)的马克 RSS 流 API 转化成：
