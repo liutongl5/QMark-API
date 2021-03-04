@@ -1,8 +1,10 @@
 # QMark-API
 [中文](#user-content-简介) | [English](#user-content-Introduction)
 
+[QMagazine]: [https://qingmang.me/app]
+
 ## 简介
-将[轻芒杂志](https://qingmang.me/)的马克 RSS 流 API 转化成：
+将[轻芒杂志][QMagazine]的马克 RSS 流 API 转化成：
 + `JSON`
 + 纯`HTML`网页`<div>`模块
 + `Markdown` （待完成）
@@ -13,7 +15,7 @@
 
 
 ## Introduction
-Convert "Marked" RSS feed API from [Qingmang Magazine](https://qingmang.me/) into:
+Convert "Marked" RSS feed API from [Qingmang Magazine][QMagazine] into:
 + `JSON`
 + `<div>` DOM in pure `HTML`
 + `Markdown` (to be done)
