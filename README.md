@@ -1,7 +1,7 @@
 # QMark-API
 [中文](#user-content-简介) | [English](#user-content-Introduction)
 
-[QMagazine]: [https://qingmang.me/app]
+[QMagazine]: https://qingmang.me/app
 
 ## 简介
 将[轻芒杂志][QMagazine]的马克 RSS 流 API 转化成：
