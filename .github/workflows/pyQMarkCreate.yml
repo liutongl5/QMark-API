@@ -27,4 +27,4 @@ jobs:
         COMMENT_BODY: ${{ github.event.comment.body }}
       run: |
         echo "${COMMENT_BODY}"
-        python action/issuecomment.py ${ADMIN_TOKEN@Q} ${ISSUE_URL} ${COMMENT_BODY}
+        python action/issuecomment.py ${ADMIN_TOKEN@Q} ${ISSUE_URL} "${COMMENT_BODY}"
