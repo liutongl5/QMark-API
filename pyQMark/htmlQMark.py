@@ -20,7 +20,7 @@ def htmlQMarkDict( dictQMark ):
 	etQMarkHtmlCursor.append(etQmarkProcessing)
 
 	# Include LastBuildDate
-	etQmarkProcessing = ET.Element("time", attrib={"class": "h1QMarkTime", "datetime": dictQMark["lastBuildDate"]})
+	etQmarkProcessing = ET.Element("time", attrib={"class": "timeQMarkTime", "datetime": dictQMark["lastBuildDate"]})
 	etQmarkProcessing.text = dictQMark["lastBuildDate"]
 	etQMarkHtmlCursor.append(etQmarkProcessing)
 
@@ -61,7 +61,7 @@ def htmlQMarkDict( dictQMark ):
 		etQMarkHtmlCursor = etQmarkProcessing
 
 		# Include Mark Item PubDate
-		etQmarkProcessing = ET.Element("time", attrib={"class": "h1QMarkTime", "datetime": dictQMarkItem["pubDate"]})
+		etQmarkProcessing = ET.Element("time", attrib={"class": "timeQMarkTime", "datetime": dictQMarkItem["pubDate"]})
 		etQmarkProcessing.text = dictQMarkItem["pubDate"]
 		etQMarkHtmlCursor.append(etQmarkProcessing)
 
