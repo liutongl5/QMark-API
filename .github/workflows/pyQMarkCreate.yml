@@ -23,7 +23,7 @@ jobs:
     - name: Run pyQMark
       env: 
         ADMIN_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        ISSUECOMMENT_URL: ${{ github.event.issue.comment_url }}
+        ISSUECOMMENT_URL: ${{ github.event.issue.comments_url }}
         COMMENT_BODY: ${{ github.event.comment.body }}
       run: |
         echo "${COMMENT_BODY}"
