@@ -1,0 +1,31 @@
+
+name: pyQMark
+
+on:
+  issue_comment:
+    types: [deleted]
+
+jobs:
+  issue_comment_created:
+
+    if: (${{ !github.event.issue.pull_request }}) && (${{ github.event.issue.number }}==1)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Run pyQMark
+      env: 
+        ADMIN_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ISSUECOMMENT_URL: ${{ github.event.issue.comments_url }}
+        COMMENT_TIME: ${{ github.event.comment.created_at }}
+      run: |
+        echo "${COMMENT_BODY}"
+        echo "${ISSUECOMMENT_URL}"
+        python action/DeleteIssuecomment.py ${ADMIN_TOKEN} ${ISSUECOMMENT_URL} "${COMMENT_TIME}"
