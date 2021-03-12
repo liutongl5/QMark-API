@@ -6,6 +6,7 @@ import copy
 import re
 import ssl, urllib.request
 import xml.etree.ElementTree as ET
+import json, html
 
 
 def strRetrieveQMark(userId=1, userSecret=""):
@@ -65,28 +66,24 @@ def dictParseQMark(userId=1, userSecret="", hideSecret=False):
 		else:
 			dictQMarkItem["link"] = etQmarkProcessing.text
 
-		strQMarkItemDescription = etQMarkXmlItem.find("description").text
-		# print( strQMarkItemDescription ) # debug
-		reQMarkItemDescription = re.match( \
-			r"(?P<quotes><div>.*</div>)<br/><br/>(?P<notes><div>.*?</div>)", \
-			strQMarkItemDescription , re.I | re.S | re.U)
+		etQmarkProcessing = etQMarkXmlItem.find("description")
+		etQmarkProcessing = ET.fromstring( "<div>"+html.unescape(etQmarkProcessing.text.strip())+"</div>" )
+		# print( ET.tostring(etQmarkProcessing, encoding='unicode') )
 		# Include Quotes (if any)
-		etQMarkItemQuotes = ET.fromstring(reQMarkItemDescription.group("quotes").strip())
-		# print( etQMarkItemQuotes ) # debug
+		etQMarkItemQuotes = etQmarkProcessing.find("blockquote")
 		dictQMarkItem["quotes"] = []
-		for etQuote in etQMarkItemQuotes:
-			dictQMarkItem["quotes"].append( ET.tostring(etQuote, encoding='unicode') )
+		if etQMarkItemQuotes is not None:
+			for etQuote in etQMarkItemQuotes:
+				dictQMarkItem["quotes"].append( ET.tostring(etQuote, encoding='unicode') )
 		# Include Notes (if any)
+		etQMarkItemNotes = etQmarkProcessing.find("p")
 		dictQMarkItem["notes"] = []
-		etQMarkItemNotes = ET.fromstring(reQMarkItemDescription.group("notes").strip())
-		for etNote in etQMarkItemNotes:
-			strQmarkItemNote = etNote.text.strip()
-			# print("etNote: "+strQmarkItemNote) # debug
-			if ( strQmarkItemNote.startswith("💡") ):
-				# check if the item is "lightening"
-				# print("Lightened") # debug
-				pass 
-			else :
+		if etQMarkItemNotes is not None:
+			# print(etQMarkItemNotes.text)
+			dictQMarkItem["notes"].append( ET.tostring(etQMarkItemNotes, encoding='unicode') )
+			for etNote in etQMarkItemNotes:
+				strQmarkItemNote = etNote.text.strip()
+				print("etNote: "+strQmarkItemNote) # debug
 				dictQMarkItem["notes"].append( ET.tostring(etNote, encoding='unicode') )
 
 		# Include Mark Item Link 
