@@ -21,7 +21,12 @@ def ReadIssueComment(argv):
 	# 				"json": True/False
 	# 			# [3] should be the message body of issue comment # ${{ github.event.comment.body }}
 
-	dictParseOption = json.loads(argv[3])
+	dictParseOption = {}
+	for strOption in (argv[3].split("&")) :
+		arrOption = strOption.split("=")
+		if (len(arrOption) == 2) :
+			dictParseOption[ arrOption[0].strip() ] = arrOption[1].strip()
+	# print( json.dumps(dictParseOption) ) # debug
 	strIssueCommentUrl = argv[2]
 	headers = { \
 		"Accept": "application/vnd.github.v3+json", \
@@ -52,8 +57,9 @@ def ReadIssueComment(argv):
 		else:
 			dictDataBody["json"] = jsonQMarkDict( dictQMark )
 
-		data["body"] = json.dumps(dictDataBody).encode('utf-8')
-		# print( data["body"] ) # debug
+		data["body"] = json.dumps(dictDataBody)
+		# print( json.dumps(data) ) # debug
+		# print(strIssueCommentUrl)
 
 		req = urllib.request.Request(strIssueCommentUrl, data=json.dumps(data).encode('utf-8'), headers=headers) 
 		with urllib.request.urlopen(req, context=ssl.SSLContext()) as response:
