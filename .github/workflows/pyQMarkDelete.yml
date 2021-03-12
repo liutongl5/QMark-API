@@ -26,6 +26,6 @@ jobs:
         ISSUECOMMENT_URL: ${{ github.event.issue.comments_url }}
         COMMENT_TIME: ${{ github.event.comment.created_at }}
       run: |
-        echo "${COMMENT_BODY}"
+        echo "${COMMENT_TIME}"
         echo "${ISSUECOMMENT_URL}"
         python action/DeleteIssuecomment.py ${ADMIN_TOKEN} ${ISSUECOMMENT_URL} "${COMMENT_TIME}"
