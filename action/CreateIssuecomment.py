@@ -8,7 +8,7 @@ from parseQMarkApi import dictParseQMark
 from htmlQMark import htmlQMarkDict
 from jsonQMark import jsonQMarkDict
 
-def ReadIssueComment(argv):
+def PostIssueComment(argv):
 
 	# argv: input arguments: 
 	# 		[1] Admin GithubToken to be used for posting replies of generated results
@@ -32,13 +32,13 @@ def ReadIssueComment(argv):
 		"Accept": "application/vnd.github.v3+json", \
 		"Authorization": f"token {argv[1]}" \
 	}
-	data= {"body": ""}
+	payloadData= {"body": ""}
 
 	if ("userId" in dictParseOption) :
-		dictDataBody = {}
+		dictPayloadDataBody = {}
 
 		try:
-			dictDataBody["userId"] = int(dictParseOption["userId"])
+			dictPayloadDataBody["userId"] = int(dictParseOption["userId"])
 		except:
 			return -1
 		strUserSecret = ""
@@ -47,21 +47,21 @@ def ReadIssueComment(argv):
 		boolHideSecret = True
 		if ( ("hideSecret" in dictParseOption) and (dictParseOption["hideSecret"] == "False") ):
 			boolHideSecret = False
-		dictQMark = dictParseQMark(dictDataBody["userId"], strUserSecret, boolHideSecret)
+		dictQMark = dictParseQMark(dictPayloadDataBody["userId"], strUserSecret, boolHideSecret)
 
 		if ( ("html" in dictParseOption) and (dictParseOption["html"] == "True") ):
-			dictDataBody["html"] = htmlQMarkDict( dictQMark )
-			# print(dictDataBody["html"]) # debug
+			dictPayloadDataBody["html"] = htmlQMarkDict( dictQMark )
+			# print(dictPayloadDataBody["html"]) # debug
 			if ( ("json" in dictParseOption) and (dictParseOption["json"] == "True") ):
-				dictDataBody["json"] = jsonQMarkDict( dictQMark )
+				dictPayloadDataBody["json"] = jsonQMarkDict( dictQMark )
 		else:
-			dictDataBody["json"] = jsonQMarkDict( dictQMark )
+			dictPayloadDataBody["json"] = jsonQMarkDict( dictQMark )
 
-		data["body"] = json.dumps(dictDataBody)
-		# print( json.dumps(data) ) # debug
+		payloadData["body"] = json.dumps(dictPayloadDataBody)
+		# print( json.dumps(payloadData) ) # debug
 		# print(strIssueCommentUrl)
 
-		req = urllib.request.Request(strIssueCommentUrl, data=json.dumps(data).encode('utf-8'), headers=headers) 
+		req = urllib.request.Request(strIssueCommentUrl, data=json.dumps(payloadData).encode('utf-8'), headers=headers) 
 		with urllib.request.urlopen(req, context=ssl.SSLContext()) as response:
 			strQMarkXml = response.read().decode('UTF-8')
 			print(strQMarkXml) # debug
@@ -71,7 +71,7 @@ def main():
 		print("Not enough argv. At least 3 arguments required.")
 		return -1
 	else:
-		ReadIssueComment(sys.argv)
+		PostIssueComment(sys.argv)
 
 	return 0
 
