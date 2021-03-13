@@ -79,11 +79,10 @@ def dictParseQMark(userId=1, userSecret="", hideSecret=False):
 		etQMarkItemNotes = etQmarkProcessing.find("aside")
 		dictQMarkItem["notes"] = []
 		if etQMarkItemNotes is not None:
-			# print(etQMarkItemNotes.text) # debug
+			# print("text: "+etQMarkItemNotes.text+"endtext") # debug
 			dictQMarkItem["notes"].append( "<p>"+etQMarkItemNotes.text+"</p>" )
 			for etNote in etQMarkItemNotes:
-				strQmarkItemNote = etNote.text.strip()
-				print("etNote: "+strQmarkItemNote) # debug
+				# print( ET.tostring(etNote, encoding='unicode') )
 				dictQMarkItem["notes"].append( ET.tostring(etNote, encoding='unicode') )
 
 		# Include Mark Item Link 
