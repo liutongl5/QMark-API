@@ -11,6 +11,8 @@
 + 含有`class`类名的`HTML`网页`<div>`模块
 + `Markdown` （待完成）
 
+欢迎调用或二次开发。
+
 ## 支持的编程语言
 + `Python 3.7+`
 + `Node` （待完成）
@@ -26,6 +28,8 @@ Convert "Marked" RSS feed API from [Qingmang Magazine][QMagazine] into:
 + `JSON`
 + `<div>` DOM in `HTML` with `class` names
 + `Markdown` (to do)
+
+You are welcome to reuse, reproduce, or develop further without any restrictions.
 
 ## Supported Programming Language
 + `Python 3.7+`
