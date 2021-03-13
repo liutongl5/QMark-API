@@ -80,10 +80,7 @@ def dictParseQMark(userId=1, userSecret="", hideSecret=False):
 		dictQMarkItem["notes"] = []
 		if etQMarkItemNotes is not None:
 			# print("text: "+etQMarkItemNotes.text+"endtext") # debug
-			dictQMarkItem["notes"].append( "<p>"+etQMarkItemNotes.text+"</p>" )
-			for etNote in etQMarkItemNotes:
-				# print( ET.tostring(etNote, encoding='unicode') )
-				dictQMarkItem["notes"].append( ET.tostring(etNote, encoding='unicode') )
+			dictQMarkItem["notes"].append( ET.tostring(etQMarkItemNotes, encoding='unicode') )
 
 		# Include Mark Item Link 
 		etQmarkProcessing = etQMarkXmlItem.find("guid")
@@ -99,7 +96,7 @@ def dictParseQMark(userId=1, userSecret="", hideSecret=False):
 	return dictQMark
 
 def main():
-	dictQMark = dictParseQMark(11, hideSecret=True)
+	# dictQMark = dictParseQMark(11, hideSecret=True)
 	# dictQMark = dictParseQMark(11)
 
 	if ("valid" in dictQMark and dictQMark["valid"] is True):
