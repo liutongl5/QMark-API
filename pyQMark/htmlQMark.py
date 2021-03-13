@@ -71,7 +71,7 @@ def htmlQMarkDict( dictQMark ):
 	return strQMarkHtml
 
 def main():
-	print( htmlQMark(userId=11,userSecret="YourSecret", hideSecret=True) )
+	# print( htmlQMark(userId=11,userSecret="YourSecret", hideSecret=True) )
 
 if __name__ == '__main__':
 	main()
