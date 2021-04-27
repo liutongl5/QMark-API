@@ -26,7 +26,7 @@ def dictParseQMark(userId=1, userSecret="", hideSecret=False):
 		etQMarkXmlRoot = ET.fromstring(strQMarkXml)
 		etQMarkXmlRoot = etQMarkXmlRoot.find("channel")
 	except Exception as e:
-		print("Invalid RSS")
+		# print("Invalid RSS")
 		return {"valid": False, "message": "Invalid RSS"}
 
 	# ============================================================
@@ -67,7 +67,10 @@ def dictParseQMark(userId=1, userSecret="", hideSecret=False):
 			dictQMarkItem["link"] = etQmarkProcessing.text
 
 		etQmarkProcessing = etQMarkXmlItem.find("description")
-		etQmarkProcessing = ET.fromstring( "<div>"+html.unescape(etQmarkProcessing.text.strip())+"</div>" )
+		if ( (etQmarkProcessing is not None) and (etQmarkProcessing.text is not None) ) :
+			etQmarkProcessing = ET.fromstring( "<div>"+html.unescape(etQmarkProcessing.text.strip())+"</div>" )
+		else:
+			etQmarkProcessing = ET.Element("div")
 		# print( ET.tostring(etQmarkProcessing, encoding='unicode') )
 		# Include Quotes (if any)
 		etQMarkItemQuotes = etQmarkProcessing.find("blockquote")
@@ -102,7 +105,8 @@ def main():
 	if ("valid" in dictQMark and dictQMark["valid"] is True):
 		print( json.dumps(dictQMark) )
 	else:
-		print("Error Retrieving XML!")
+		print("Error Retrieving XML! ")
+		print("[Message] "+dictQMark["message"])
 
 if __name__ == '__main__':
 	main()
